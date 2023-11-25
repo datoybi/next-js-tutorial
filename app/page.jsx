@@ -1,21 +1,34 @@
 import Heading from "@/components/Heading";
 import Link from "next/link";
-import { getFeaturedReview } from "@/lib/reviews";
+import { getFeaturedReview, getReviews } from "@/lib/reviews";
+import Image from "next/image";
 
 export default async function HomePage() {
-  const review = await getFeaturedReview();
+  // const review = await getFeaturedReview();
+  const reviews = await getReviews(3);
 
   return (
     <>
       <Heading>Home</Heading>
-      <p>Here we'll list all the home.</p>
       <ul className="flex flex-row flex-wrap gap-3">
-        <li className="bg-white border rounded shadow w-80 hover:shadow-xl">
-          <Link href={`/reviews/${review.slug}`}>
-            <img src={review.image} alt={review.title} width="320" height="180" className="rounded-t " />
-            <h2 className="font-semibold font-orbitron py-1 text-center">{review.title}</h2>
-          </Link>
-        </li>
+        {reviews.map((review) => (
+          <li key={review.slug} className="bg-white border rounded shadow w-80 hover:shadow-xl">
+            <Link href={`/reviews/${review.slug}`}>
+              <img
+                src={review.image}
+                alt={review.title}
+                width="320"
+                height="180"
+                className="rounded-t"
+                // priority={index === 0}
+              />
+              <div className="px-2 py-1 text-center sm:text-left">
+                <h2 className="font-semibold font-orbitron">{review.title}</h2>
+                <p className="hidden pt-2 sm:block">{review.subtitle}</p>
+              </div>
+            </Link>
+          </li>
+        ))}
       </ul>
     </>
   );
