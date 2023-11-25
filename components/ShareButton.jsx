@@ -5,7 +5,8 @@ export default function ShareButtons() {
 
   return (
     <div>
-      <ShareLinkButton /> | [Twitter] | [Facebook]
+      {/* <ShareLinkButton /> | [Twitter] | [Facebook] */}
+      <ShareLinkButton />
     </div>
   );
 }
