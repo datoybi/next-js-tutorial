@@ -4,6 +4,7 @@ import ShareButton from "@/components/ShareButton";
 
 export async function generateStaticParams() {
   const slugs = await getSlugs();
+  console.log("[generateStaticParams] ", slugs);
   return slugs.map((slug) => ({ slug }));
 }
 
