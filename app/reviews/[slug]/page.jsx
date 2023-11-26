@@ -2,15 +2,22 @@ import Heading from "@/components/Heading";
 import { getReview, getSlugs } from "@/lib/reviews";
 import ShareButton from "@/components/ShareButton";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
-export async function generateStaticParams() {
-  const slugs = await getSlugs();
-  // console.log("[generateStaticParams] ", slugs);
-  return slugs.map((slug) => ({ slug }));
-}
+export const dynamic = "force-dynamic";
+
+// export async function generateStaticParams() {
+//   const slugs = await getSlugs();
+//   // console.log("[generateStaticParams] ", slugs);
+//   return slugs.map((slug) => ({ slug }));
+// }
 
 export async function generateMetadata({ params: { slug } }) {
   const review = await getReview(slug);
+  if (!review) {
+    notFound();
+  }
+
   return {
     title: review.title,
   };
@@ -18,6 +25,9 @@ export async function generateMetadata({ params: { slug } }) {
 
 export default async function ReviewPage({ params: { slug } }) {
   const review = await getReview(slug);
+  if (!review) {
+    notFound();
+  }
 
   return (
     <>

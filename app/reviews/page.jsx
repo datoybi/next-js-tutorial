@@ -7,9 +7,12 @@ export const metadata = {
   title: "Reviews",
 };
 
+// export const dynamic = "force-dynamic";
+// export const revalidate = 30; // seconds
+
 export default async function ReviewPage(slug) {
   const reviews = await getReviews(6);
-  console.log("[ReviewsPage] reviews: ", reviews);
+  // console.log("[ReviewsPage] reviews: ", reviews);
 
   return (
     <>

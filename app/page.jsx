@@ -3,9 +3,13 @@ import Link from "next/link";
 import { getFeaturedReview, getReviews } from "@/lib/reviews";
 import Image from "next/image";
 
+// export const dynamic = "force-dynamic";
+// export const revalidate = 30; // seconds
+
 export default async function HomePage() {
   // const review = await getFeaturedReview();
   const reviews = await getReviews(3);
+  // console.log("[HomePage] ", reviews.map((review) => review.slug).join(", "));
 
   return (
     <>
