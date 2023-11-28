@@ -1,6 +1,17 @@
 import { inter } from '@/app/ui/fonts';
 import '@/app/ui/global.css';
+import { Metadata } from 'next';
 // RootLayout은 모든 페이지에 공유된다. 필수 컴포넌트이다.
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Acme Dashboard',
+    default: 'Acme Dashboard',
+  },
+  description: 'The official Next.js Learn Dashboard built with App Router.',
+  metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
+};
+
 export default function RootLayout({
   children,
 }: {
