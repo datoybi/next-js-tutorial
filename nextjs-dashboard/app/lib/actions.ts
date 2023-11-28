@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-
+import { signIn } from '@/auth';
 // 직접 서버로,, data mutation
 // 이렇게 하는 이유는??? 앱이 안전하다고 한다..!?
 
@@ -107,5 +107,19 @@ export async function deleteInvoice(id: string) {
     return { message: 'Deleted Invoice.' };
   } catch (error) {
     return { message: 'Database Error : Failed to Delete Invoice.' };
+  }
+}
+
+export async function authenticate(
+  preState: string | undefined,
+  formData: FormData,
+) {
+  try {
+    await signIn('credentials', Object.fromEntries(formData));
+  } catch (error) {
+    if ((error as Error).message.includes('CredentialsSignin')) {
+      return 'CredentialsSignin';
+    }
+    throw error;
   }
 }
